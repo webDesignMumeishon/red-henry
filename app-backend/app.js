@@ -33,7 +33,7 @@ const store = new session.MemoryStore
 var app = express();
 
 app.use(cors({
-  origin: "https://613fd6011a200a21c095fc71--adoring-lewin-6a73aa.netlify.app",
+  origin: "https://find-closest-henry.netlify.app",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 }))
