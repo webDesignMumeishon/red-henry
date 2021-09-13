@@ -7,6 +7,7 @@ const crypto = require('crypto');
 const bcrypt = require('bcrypt')
 const mailer = require('../mailer/mailer')
 const sgMail = require('@sendgrid/mail')
+const env = require('dotenv').config()
 const saltRounds = 10
 
 function validateEmail(email) {
@@ -87,9 +88,8 @@ usuarioSchema.methods.enviar_email_bienvenida = function(cb){
     token.save(function (err) {
         if (err) { return console.log(err.message); }
 
-        const API_KEY = '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'
-        sgMail.setApiKey(API_KEY)
-        console.log("=====>",API_KEY)
+        console.log(process.env.SENDGRID_API_KEY)
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
         const msg = {
             to: email_destination, // Change to your recipient
