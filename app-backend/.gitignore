@@ -6,6 +6,7 @@
 /.pnp
 .pnp.js
 
+
 # testing
 /coverage
 
@@ -16,6 +17,7 @@
 .DS_Store
 .env.local
 .env.development.local
+sendgrid.env
 
 
 npm-debug.log*
