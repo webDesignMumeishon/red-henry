@@ -1,0 +1,33 @@
+extends ../layout
+
+block content
+    a(href='/bicicletas') Volver
+
+    br
+    br
+    br
+
+    h1 Update Bicicleta
+
+    br
+    br  
+
+
+    form(action=`/bicicletas/${foundBici.code}/update` method='post')
+        label(for='code') code:
+        input#code(type='text' name='code' value=foundBici.code)
+        br
+        label(for='modelo') Modelo:
+        input#modelo(type='text' name='modelo' value=foundBici.modelo)
+        br
+        label(for='color') Color:
+        input#color(type='text' name='color' value=foundBici.color)
+        br
+        label(for='lat') Latitud:
+        input#lat(type='text' name='lat' value=foundBici.ubicacion[0])
+        br
+        label(for='lng') Longitud:
+        input#lng(type='text' name='lng' value=foundBici.ubicacion[1])
+        br
+        br
+        input.btn(type='submit' value='OK')

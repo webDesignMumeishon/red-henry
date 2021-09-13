@@ -1,0 +1,52 @@
+extends ../layout
+
+block content
+    a(href='/bicicletas') Volver
+
+    br
+    br
+    br
+
+    h1 Nueva Bicicleta
+
+    br
+    br  
+
+    script.
+        let lat = null 
+        let lng = null
+        navigator.geolocation.getCurrentPosition((pos) => {
+            let crd = pos.coords 
+            let lat = crd.latitude
+            let lng = crd.longitude
+
+            var form = document.forms[0]
+            var selectElementLat = form.querySelector('input[name="lat"]');
+            selectElementLat.value = lat
+
+            var selectElementLng = form.querySelector('input[name="lng"]');
+            selectElementLng.value = lng
+
+        })
+
+
+    form(action='/bicicletas/create' method='post')
+        label(for='code') Code:
+        input#code(type='text' name='code')
+        br
+        label(for='modelo') Modelo:
+        input#modelo(type='text' name='modelo')
+        br
+        label(for='color') Color:
+        input#color(type='text' name='color')
+        br
+        label Your Latitud and longitude are currently displaying
+        br
+        label(for='lat') Latitud:
+        input#lat(type='text' name='lat')
+        br
+        label(for='lng') Longitud:
+        input#lng(type='text' name='lng')
+        br
+        br
+        input.btn(type='submit' value='OK')
