@@ -113,6 +113,13 @@ app.post('/client/login', function(req, res, next){
     if(!usuario) return res.json(info)
     req.logIn(usuario, function(err){
       if(err) return next(err)
+
+      res.cookie('locale', null, {
+        secure: false,
+        sameSite:'lax',
+      });
+
+      console.log("=========>res", res, "COOKIE", res.cookie)
       res.json(info)
     })
   })(req, res, next);
@@ -203,10 +210,11 @@ app.post('/resetPassword',  function(req, res){
 app.use('/', indexRouter);
 app.use('/token', tokenRouter);
 app.use('/bicicletas', loggedIn, bicicletasRouter);
-app.use('/api/auth', authAPIRouter); 
-// app.use('/api/bicicletas',validarUsuario, bicicletasAPIRouter); //original
-app.use('/api/bicicletas',loggedIn, bicicletasAPIRouter);
-app.use('/api/usuarios',loggedIn, usuariosAPIRouter);
+// app.use('/api/auth', authAPIRouter); 
+app.use('/client/auth', authAPIRouter); 
+app.use('/api/bicicletas',validarUsuario, bicicletasAPIRouter); //original
+// app.use('/api/bicicletas',loggedIn, bicicletasAPIRouter);
+app.use('/api/usuarios',validarUsuario, usuariosAPIRouter);
 app.use('/usuarios', usuariosRouter);
 
 function loggedIn(req, res, next){

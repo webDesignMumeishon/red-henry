@@ -15,14 +15,15 @@ function Mapview(props) {
   // const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-     fetch('http://localhost:3000/api/usuarios', {
+     fetch('https://app-red-henry.herokuapp.com/api/usuarios', {
       method: 'GET',
       withCredentials: true,
       //DON'T TOUCH
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
-        }, 
+        'x-access-token' : localStorage.token 
+      }
       })
       .then( resultBici => resultBici.json())
       .then(dataBici => {
@@ -39,6 +40,8 @@ function Mapview(props) {
       console.log(err)
     })
   },[])
+
+
 
   function LocationMarker() {
     const [position, setPosition] = useState(null)
@@ -59,26 +62,12 @@ function Mapview(props) {
   }
 
   const logout = () => {
-    fetch('http://localhost:3000/logout2', {
-      method: 'GET',
-      withCredentials: true,
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-        }, 
-    })
-    .then(result => result.json())
-    .then(data => {
-      history.push("/")
-      setLogin(false)
-    })
+    localStorage.removeItem('token')
+    history.push("/")
+    setLogin(false)
+  
   }
 
-  // const showPreview = () => {
-  //   alert("HEy there")
-  // }
-
-  console.log(bicis)
 
   if(!login){
     return (

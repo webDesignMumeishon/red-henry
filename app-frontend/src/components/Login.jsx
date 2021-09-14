@@ -21,11 +21,11 @@ function Login(props) {
     e.preventDefault()
 
     const dataUser = {
-      username : e.target[0].value,
+      email: e.target[0].value,
       password : e.target[1].value
     }
 
-    fetch('http://localhost:3000/client/login',{
+    fetch('https://app-red-henry.herokuapp.com/client/auth/authenticate',{
       method: 'POST',
       withCredentials: true,
       //DON'T TOUCH
@@ -36,17 +36,15 @@ function Login(props) {
       body: JSON.stringify({...dataUser}),
     })
     .then(result => {
-      console.log(result)
-
       return result.json()
     })
     .then(data => {
-      if(data.login){
+      if(data.status === true){
         props.setLogininfo({...dataUser, status: true})
+        localStorage.setItem("token", data.data.token)
         let path = `/Mapview`
         history.push(path)
       }
-      
       else{
         handleShow()
         console.log(data.message)
@@ -54,7 +52,6 @@ function Login(props) {
       }
     })
   }
-
   
     return (
         <div>

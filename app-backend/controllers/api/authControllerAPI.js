@@ -6,6 +6,7 @@ module.exports = {
     authenticate: function(req, res, next){
 
         Usuario.findOne({email:req.body.email}, function(err, userInfo){
+            console.log(userInfo)
             if (err) {
                 next(err);
             } else {
@@ -15,7 +16,7 @@ module.exports = {
                     //the token is created with jwt 8method sign)
                     //We get the seed which is inside the app (globally) - also the expiration is detailed
                     const token = jwt.sign({id: userInfo._id}, req.app.get('secretKey'), { expiresIn: '7d' });
-                    res.status(200).json({message: "usuario encontrado!", data:{usuario: userInfo, token: token}});
+                    res.status(200).json({message: "usuario encontrado!", data:{usuario: userInfo, token: token}, status:true});
 
                 } else {
                     res.status(401).json({status:"error", message: "Invalido email/password!", data: null});
