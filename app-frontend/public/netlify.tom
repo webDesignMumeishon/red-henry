@@ -7,3 +7,7 @@ publish="build/"
 from = “/*”
 to = “/index.html”
 status = 200
+
+from = "/Myview"
+to = "/index.html"
+status = 200
