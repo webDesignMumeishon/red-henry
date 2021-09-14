@@ -33,6 +33,10 @@ function Mapview(props) {
       console.log(dataBici)
       setBicis([...dataBici.usuarios])
       setLogin(true)
+     
+    }) 
+    .catch(err => {
+      console.log(err)
     })
   },[])
 
