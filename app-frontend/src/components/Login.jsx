@@ -3,6 +3,9 @@ import { useHistory } from "react-router-dom";
 import {useState} from 'react'
 import Mapview from './Mapview'
 import Modal from "./Modal";
+import {
+  Link
+} from "react-router-dom";
 
 function Login(props) {
   
@@ -55,6 +58,7 @@ function Login(props) {
   
     return (
         <div>
+          <Link to={'/Mapview'}>OK</Link>
           <form onSubmit={handleSubmit} >
             <input type="text" />email
             <input type="text" />password

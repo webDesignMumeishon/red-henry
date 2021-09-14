@@ -25,7 +25,7 @@ function App() {
         <Route path="/Mapview">
           <Mapview email={loginInfo.username} password={loginInfo.password}  status={loginInfo.status}/>
         </Route>
-        <Route path="/">
+        <Route  exact path="/">
           <Login setLogininfo={setLogininfo}/>
         </Route>
         {/* <Route path="/create">
