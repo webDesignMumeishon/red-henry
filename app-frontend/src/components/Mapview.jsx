@@ -15,7 +15,7 @@ function Mapview(props) {
   // const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-     fetch('http://localhost:3000/api/usuarios', {
+     fetch('https://localhost:3000/api/usuarios', {
       method: 'GET',
       withCredentials: true,
       //DON'T TOUCH
