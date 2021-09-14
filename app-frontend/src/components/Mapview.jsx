@@ -30,6 +30,7 @@ function Mapview(props) {
       // return el.ubicacion
       // })
       // setBicis(bicisCoord)
+      console.log(dataBici)
       setBicis([...dataBici.usuarios])
       setLogin(true)
     })
