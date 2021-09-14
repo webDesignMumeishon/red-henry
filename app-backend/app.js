@@ -44,7 +44,8 @@ app.set('secretKey', 'jwt_pwd_!!223344');
 //importing mongoose
 let mongoose = require('mongoose')
 //This is to establish the connection
-let mongoDB = 'mongodb://localhost/find__henry'
+
+let mongoDB = 'mongodb+srv://new-admin:GUEhzEFMTk2dZKT2@cluster0.cu6bh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 //Setting up the db
 mongoose.connect(mongoDB, {useNewUrlParser: true})
 mongoose.Promise= global.Promise
