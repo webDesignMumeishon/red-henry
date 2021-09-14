@@ -78,8 +78,6 @@ app.use(session({
   cookie: {
     httpOnly: true,
     maxAge: 240 * 60 * 60 * 1000,
-    sameSite: "none",
-    secure: true
   },
   // secret: generates the encrypted identifier for the cookie. Is the seed of the code generator use to 
   // identify the session
