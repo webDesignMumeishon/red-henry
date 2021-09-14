@@ -22,12 +22,13 @@ function App() {
     <Router>
     <div>
       <Switch>
+      <Route  exact path="/">
+          <Login setLogininfo={setLogininfo}/>
+        </Route>
         <Route path="/Mapview">
           <Mapview email={loginInfo.username} password={loginInfo.password}  status={loginInfo.status}/>
         </Route>
-        <Route  exact path="/">
-          <Login setLogininfo={setLogininfo}/>
-        </Route>
+        
         {/* <Route path="/create">
           <Create />
         </Route> */}
