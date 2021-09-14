@@ -33,7 +33,7 @@ const store = new session.MemoryStore
 var app = express();
 
 app.use(cors({
-  origin: "http://localhost:3002",
+  origin: "http://localhost:3001",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 }))
@@ -70,11 +70,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Here is configurated the cookie for the session
 app.use(session({
   //here we define how long the cookie lasts, when it expires
-  cookie: {maxAge: 240 * 60 * 60 * 1000},
+  // cookie: {maxAge: 240 * 60 * 60 * 1000},
   //Here is defined where the session is stored (it is in the store variable defined above)
   store: store,
   saveUninitialized: true,
   resave: true,
+  cookie: {
+    httpOnly: true,
+    maxAge: 240 * 60 * 60 * 1000,
+    sameSite: "none",
+    secure: true
+  },
   // secret: generates the encrypted identifier for the cookie. Is the seed of the code generator use to 
   // identify the session
   secret: 'red_bicis_app_adasd_asdasd'
