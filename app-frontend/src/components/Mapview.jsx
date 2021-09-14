@@ -15,7 +15,7 @@ function Mapview(props) {
   // const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-     fetch('https://app-red-henry.herokuapp.com/api/usuarios', {
+     fetch('http://localhost:3000/api/usuarios', {
       method: 'GET',
       withCredentials: true,
       //DON'T TOUCH

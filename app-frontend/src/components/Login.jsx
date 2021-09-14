@@ -25,7 +25,7 @@ function Login(props) {
       password : e.target[1].value
     }
 
-    fetch('https://app-red-henry.herokuapp.com/client/login',{
+    fetch('http://localhost:3000/client/login',{
       method: 'POST',
       withCredentials: true,
       //DON'T TOUCH
