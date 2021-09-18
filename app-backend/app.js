@@ -33,7 +33,7 @@ const store = new session.MemoryStore
 var app = express();
 
 app.use(cors({
-  origin: "https://find-closest-henry.netlify.app",
+  origin: "http://localhost:3001",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 }))
@@ -118,8 +118,6 @@ app.post('/client/login', function(req, res, next){
         secure: false,
         sameSite:'lax',
       });
-
-      console.log("=========>res", res, "COOKIE", res.cookie)
       res.json(info)
     })
   })(req, res, next);
@@ -212,10 +210,10 @@ app.use('/token', tokenRouter);
 app.use('/bicicletas', loggedIn, bicicletasRouter);
 // app.use('/api/auth', authAPIRouter); 
 app.use('/client/auth', authAPIRouter); 
-app.use('/api/bicicletas',validarUsuario, bicicletasAPIRouter); //original
+// app.use('/api/bicicletas',validarUsuario, bicicletasAPIRouter); //original
 // app.use('/api/bicicletas',loggedIn, bicicletasAPIRouter);
-app.use('/api/usuarios',validarUsuario, usuariosAPIRouter);
-app.use('/usuarios', usuariosRouter);
+app.use('/api/usuarios', usuariosAPIRouter);
+app.use('/usuarios',loggedIn, usuariosRouter);
 
 function loggedIn(req, res, next){
   if(req.session.passport){

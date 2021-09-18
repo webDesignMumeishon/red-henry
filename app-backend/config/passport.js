@@ -10,8 +10,7 @@ passport.use(new localStrategy(
             if(!usuario.validPassword(password)) return done(null, false, {message: 'Invalid password'})
             
             //This is to only allow one particular person the access and control
-            // if(usuario.email !== "muma@gmail.com") return done(null, false, {message: "You don't have permission"})  
-            // console.log(usuario.verified)
+            if(usuario.email !== "muma.sanmartin2011@gmail.com") return done(null, false, {message: "You don't have permission"})  
             if(!usuario.verified) return done(null, false, {message: 'User Not verified'})
             return done(null,usuario, {login: true, usuario: usuario})
         })

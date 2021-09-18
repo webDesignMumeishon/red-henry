@@ -38,7 +38,7 @@ module.exports = {
             res.render('usuarios/create', {errors: {confirm_password: {message: 'No coincide con el password ingresado'}}})
             return
         }
-
+        console.log(req.body)
         Usuario.create({
             nombre: req.body.nombre,
             email: req.body.email,

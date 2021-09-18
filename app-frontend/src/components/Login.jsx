@@ -1,11 +1,17 @@
 // import './App.css';
 import { useHistory } from "react-router-dom";
+import '../App.css';
+
 import {useState} from 'react'
 import Mapview from './Mapview'
 import Modal from "./Modal";
 import {
   Link
 } from "react-router-dom";
+import { FaUser } from 'react-icons/fa';
+import { RiLockPasswordFill } from 'react-icons/ri';
+
+
 
 function Login(props) {
   
@@ -25,7 +31,7 @@ function Login(props) {
       password : e.target[1].value
     }
 
-    fetch('https://app-red-henry.herokuapp.com/client/auth/authenticate',{
+    fetch('http://localhost:3000/client/auth/authenticate',{
       method: 'POST',
       withCredentials: true,
       //DON'T TOUCH
@@ -55,13 +61,26 @@ function Login(props) {
   
     return (
         <div>
-          <Link to={'/Mapview'}>OK</Link>
-          <form onSubmit={handleSubmit} >
-            <input type="text" />email
-            <input type="text" />password
-            <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Submit</button>
+          {/* <Link to={'/Mapview'}>OK</Link> */}
+          <form onSubmit={handleSubmit} className="login-box">
+            <h1>Login</h1>
+            
+            <div className="textbox">
+              <p>Not a user? <Link style={{fontWeight:"500"}}>Sing in here</Link> </p>
+            </div>
+
+            <div className="textbox">
+              <FaUser className="icons"/>
+              <input type="text" placeholder="email"/>
+            </div>
+
+            <div className="textbox">
+              <RiLockPasswordFill className="icons"/>
+              <input type="text" placeholder="password"/>
+              
+            </div>
+            <button type="submit" class="my-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Log in</button>
           </form>
-          <h3>Status: {message}</h3>
           <Modal show={show} handleClose={handleClose} message={message}/>
         </div>
       );

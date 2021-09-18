@@ -8,6 +8,8 @@ import {
 } from "react-router-dom";
 import { useState } from 'react';
 import Mapview from './components/Mapview';
+import Create from './components/Create';
+
 // import Create from './Create';
 
 function App() {
@@ -28,10 +30,15 @@ function App() {
         <Route path="/Mapview">
           <Mapview email={loginInfo.username} password={loginInfo.password}  status={loginInfo.status}/>
         </Route>
+
+        <Route path="/create">
+          <Create/>
+        </Route>
         
-        {/* <Route path="/create">
-          <Create />
-        </Route> */}
+        {/* Default redirected page if the path is invalid */}
+        <Route path="*"  exact={true}>
+          <Login setLogininfo={setLogininfo}/>
+        </Route>
       </Switch>
     </div>
   </Router>
