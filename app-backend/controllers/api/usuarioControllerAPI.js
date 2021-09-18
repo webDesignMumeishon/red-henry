@@ -13,9 +13,10 @@ exports.usuario_create = function(req, res){
     let usuarios = new Usuario({
         nombre: req.body.nombre, 
         email: req.body.email, 
-        password: req.body.password
+        cohorte: req.body.cohorte,
+        password: req.body.password,
+        ubicacion: [req.body.lat, req.body.lng]
     })
-
     usuarios.save()
     .then(result => {
         res.status(200).json(result)

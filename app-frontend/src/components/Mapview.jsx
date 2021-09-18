@@ -12,10 +12,11 @@ function Mapview(props) {
   const history = useHistory()
   const [login, setLogin] =  useState(false)
   const [bicis, setBicis] =  useState([])
+  const [numBicis, setNumBicis] = useState(0)
   // const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-     fetch('https://app-red-henry.herokuapp.com/api/usuarios', {
+     fetch('http://localhost:3000/api/usuarios', {
       method: 'GET',
       withCredentials: true,
       //DON'T TOUCH
@@ -33,6 +34,7 @@ function Mapview(props) {
       // setBicis(bicisCoord)
       console.log(dataBici)
       setBicis([...dataBici.usuarios])
+      setNumBicis([...dataBici.usuarios].filter(e => e.verified))
       setLogin(true)
      
     }) 
@@ -71,17 +73,19 @@ function Mapview(props) {
 
   if(!login){
     return (
-      <div>
+      <div className="loginHere">
         <h1>You are Not logged</h1>
-        <button onClick={() => {history.push(`/`)}}>Log in Here</button>
+        <button className="my-btn"  onClick={() => {history.push(`/`)}}>Log in Here</button>
       </div>
     )
   }
 
   return (
     <div>
-      <h3>Number of Henrys registered: {bicis.length}</h3>
-      
+      <header className="header">
+        <h5 className="nHenrys">Number of Henrys Verified: {numBicis.length}</h5>
+        <h5 onClick={logout} className="logout">Logout</h5>
+      </header>
       <MapContainer
         center={{ lat: -17.82712706356967, lng: -57.94735835790813 }}
         zoom={3}
@@ -90,7 +94,7 @@ function Mapview(props) {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {bicis.map((b,i) => (
+          {/* {bicis.map((b,i) => (
             <Marker
               key={i}
               // eventHandlers={{ click: () => showPreview() }}
@@ -100,14 +104,24 @@ function Mapview(props) {
               Cohorte: {b.cohorte}
             </Popup>
             </Marker>
-          ))}
+          ))} */}
+          {bicis.map((b,i) => {
+            return b.verified ?
+            <Marker
+              key={i}
+              // eventHandlers={{ click: () => showPreview() }}
+              position={b?.ubicacion}>
+            <Popup>
+              Nombre: {b.nombre} <br />
+              Cohorte: {b.cohorte}
+            </Popup>
+            </Marker> 
+            : null
+          })}
         <LocationMarker />
-      </MapContainer>,
-    <button onClick={logout}>logout</button>
+      </MapContainer>
     </div>
-
   ) 
-  
 }
 
 export default Mapview;
