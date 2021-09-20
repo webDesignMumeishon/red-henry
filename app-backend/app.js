@@ -9,7 +9,6 @@ var logger = require('morgan');
 
 //Getting the routes modules
 let indexRouter = require('./routes/index');
-// let usersRouter = require('./routes/usuario');
 let Token = require('./models/token')
 let bicicletasRouter = require('./routes/bicicletas');
 let bicicletasAPIRouter = require('./routes/api/bicicletas');
@@ -21,15 +20,12 @@ const passport = require('./config/passport')
 const session = require('express-session')
 const Usuario = require('./models/usuario')
 const jwt = require('jsonwebtoken')
-// const loginClientRouter = require('./routes/client/login')
+const clientRouter = require('./routes/client')
 // const MongoDBStore = require('connect-mongodb-session')(session);
 
 //The session is stored in the server's memory
 //If the server is closed, it forgets all the logged users, thus, users have to authenticate again
 const store = new session.MemoryStore
-
-// var app = express().use('*', cors());
-
 var app = express();
 
 app.use(cors({
@@ -107,23 +103,6 @@ app.post('/login', function(req, res, next){
   })(req, res, next);
 })
 
-app.post('/client/login', function(req, res, next){
-  passport.authenticate('local', function(err, usuario, info){
-    if(err) return next(err)
-    if(!usuario) return res.json(info)
-    req.logIn(usuario, function(err){
-      if(err) return next(err)
-
-      res.cookie('locale', null, {
-        secure: false,
-        sameSite:'lax',
-      });
-      res.json(info)
-    })
-  })(req, res, next);
-})
-
-
 app.get('/logout', function(req, res) {
   req.logout();
   req.session.destroy(function (err) {
@@ -145,75 +124,78 @@ app.get('/auth', function(req,res,next){
   }
   else{
     console.log("User is not Logged in")
-    
     res.json({message: "you are not login"})
   }
 })
 
 
-app.get('/logout2', function(req, res) {
-  req.logout();
-  req.session.destroy(function (err) {
-    if (err) { return next(err); }
-    // The response should indicate that the user is no longer authenticated.
-    // return res.send({ authenticated: req.isAuthenticated() });
-    res.json({message: "you are logged out"})
-  });
-});
+
 
 app.post('/forgotPassword', function(req, res){
-  
   Usuario.findOne({ email: req.body.email }, function (err, usuario) {
     if (!usuario) return res.render('session/forgotPassword', {info: {message: 'No existe el usuario'}});
- 
     usuario.resetPassword(function(err){
       if (err) return next(err);
       console.log('session/forgotPasswordMessage');
     });
-
     res.render('session/forgotPasswordMessage');
   });
 })
 
-app.get('/resetPassword/:token',  function(req, res, next){
-  Token.findOne({ token: req.params.token }, function (err, token) {
-    if (!token) return res.status(400).send({ type: 'not-verified', msg:  'No existe el token.'});
-    
-    Usuario.findById(token._userId, function (err, usuario) {
-      if (!usuario) return res.status(400).send({ type: 'not-verified', msg:  'No existe un usuario al token.'});
-      res.render('session/resetPassword', {errors: {}, usuario: usuario});
-    });
-  });
-});
+
+// app.post('/forgotPassword/client', function(req, res){
+//   Usuario.findOne({ email: req.body.email }, function (err, usuario) {
+//     if (!usuario) return res.render('session/forgotPassword', {info: {message: 'No existe el usuario'}});
+//     usuario.resetPassword(function(err){
+//       if (err) return next(err);
+//       console.log('session/forgotPasswordMessage');
+//     });
+//     res.json({message: "Se envio un correo a tu cuenta", creation: true});
+//   });
+// })
+
+// app.get('/resetPassword/:token',  function(req, res, next){
+//   Token.findOne({ token: req.params.token }, function (err, token) {
+//     if (!token) return res.status(400).send({ type: 'not-verified', msg:  'No existe el token.', token: false});
+//     Usuario.findById(token._userId, function (err, usuario) {
+//       // if (!usuario) return res.status(400).send({ type: 'not-verified', msg:  'No existe un usuario al token.',token: false});
+//       if (!usuario) return res.status(400).send({ type: 'not-verified', msg:  'No existe un usuario al token.',token: false});
+//       // res.render('session/resetPassword', {errors: {}, usuario: usuario});
+//       // res.redirect('https://app.example.io');
+//       res.json({msg: "Successful !", token: true})
+//     });
+//   });
+// });
 
 
-app.post('/resetPassword',  function(req, res){
-  if (req.body.password != req.body.confirm_password) {
-    res.render('session/resetPassword', {errors: {confirm_password: {message: 'No coinciden los passwords.'}}});
-    return;
-  }
-  Usuario.findOne({ email: req.body.email }, function (err, usuario) {
-    usuario.password = req.body.password;
-    usuario.save(function(err){
-      if (err) {
-        res.render('session/resetPassword', {errors: err.errors, usuario: new Usuario({ email: req.body.email })});
-      } else{
-        res.redirect('/login');    
-      }
-    });
-  });
-});
+// app.post('/resetPassword',  function(req, res){
+//   if (req.body.password != req.body.confirm_password) {
+//     res.render('session/resetPassword', {errors: {confirm_password: {message: 'No coinciden los passwords.'}}});
+//     return;
+//   }
+//   Usuario.findOne({ email: req.body.email }, function (err, usuario) {
+//     usuario.password = req.body.password;
+//     usuario.save(function(err){
+//       if (err) {
+//         res.render('session/resetPassword', {errors: err.errors, usuario: new Usuario({ email: req.body.email })});
+//       } else{
+//         res.redirect('/login');    
+//       }
+//     });
+//   });
+// });
+
+
+
 
 //Setting middlewares for specific paths
 app.use('/', indexRouter);
 app.use('/token', tokenRouter);
 app.use('/bicicletas', loggedIn, bicicletasRouter);
-// app.use('/api/auth', authAPIRouter); 
-app.use('/client/auth', authAPIRouter); 
-// app.use('/api/bicicletas',validarUsuario, bicicletasAPIRouter); //original
-// app.use('/api/bicicletas',loggedIn, bicicletasAPIRouter);
+app.use('/clientauth', authAPIRouter); 
 app.use('/api/usuarios', usuariosAPIRouter);
 app.use('/usuarios',loggedIn, usuariosRouter);
+app.use('/client', clientRouter);
 
 function loggedIn(req, res, next){
   if(req.session.passport){

@@ -5,7 +5,7 @@ let Schema = mongoose.Schema
 const Token = require('./token')
 const crypto = require('crypto');
 const bcrypt = require('bcrypt')
-const mailer = require('../mailer/mailer')
+const transporter = require('../mailer/mailer')
 const sgMail = require('@sendgrid/mail')
 const env = require('dotenv').config()
 const saltRounds = 10
@@ -85,26 +85,22 @@ usuarioSchema.methods.reservar = function(biciId, desde, hasta, cb){
 usuarioSchema.methods.enviar_email_bienvenida = function(cb){
     const token = new Token({_userId: this.id, token: crypto.randomBytes(16).toString('hex')});
     const email_destination = this.email;
-    token.save(function (err) {
+
+    token.save( async function (err) {
         if (err) { return console.log(err.message); }
 
-        console.log(process.env.SENDGRID_API_KEY)
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-
-        const msg = {
-            to: email_destination, // Change to your recipient
-            from: 'muma.sanmartin2011@gmail.com', // Change to your verified sender
-            subject: 'Account Verification',
-            text: 'Hola,\n\n'+ 'Por favor, para verificar su cuenta haga click abajo',
-            html: `<a href="http://localhost:3000/token/confirmation/${token.token}">Click To Verify</a>`
+        try{
+            await transporter.sendMail({
+                from: '<verification@app.com>', // sender address
+                to: email_destination, // list of receivers
+                subject: "Email Verification", // Subject line
+                text: "Verify your account in the link down below", // plain text body
+                html: `<a href="http://localhost:3000/token/confirmation/${token.token}">Click To Verify</a>`
+            })    
         }
-
-        sgMail.send(msg).then(() => {
-        console.log('Email sent')
-        })
-         .catch((error) => {
-            console.error("ok",error)
-        })
+        catch(err){
+            throw new Error(err)
+        }
     });
 
 };  
@@ -114,21 +110,23 @@ usuarioSchema.methods.resetPassword = function(password){
     //TODO
     const token = new Token({_userId: this.id, token: crypto.randomBytes(16).toString('hex')});
     const email_destination = this.email;
-    token.save(function (err) {
+    token.save( async function (err) {
         if (err) { return console.log(err.message); }
 
-        const mailOptions = {
-            from: 'no-reply@redbicicletas.com',
-            to: email_destination,
-            subject: 'Reseteo de password de cuenta',
-            text: 'Hola,\n\n'+ 'Por favor, para resetear el password de su cuenta haga click en este link: \n' + 'http://localhost:3000' + '/resetPassword/' + token.token + '.\n'
-        };
-
-        mailer.sendMail(mailOptions, function(err, result) {
-            if (err) { return console.log(err); }
-
-            console.log('Se ha enviado un email de reseteo de password a:  '+ email_destination + '.');
-        });
+        try{
+            await transporter.sendMail({
+                from: '<verification@app.com>', // sender address
+                to: email_destination, // list of receivers
+                subject: "Reset password", // Subject line
+                text: "Reset Your Password", // plain text body
+                html: `This is an email to reset your password <br/>
+                Click <a href="http://localhost:3001/recreatepassword/${token.token}/${email_destination}">here</a> to reset your password
+                `
+            })    
+        }
+        catch(err){
+            throw new Error(err)
+        }
     });
 }
 

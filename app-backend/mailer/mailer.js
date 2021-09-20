@@ -1,13 +1,18 @@
 // Use at least Nodemailer v4.1.0
 const nodemailer = require('nodemailer');
 
-const mailConfig = {
-    host: 'smtp.ethereal.email',
-    port: 587,
+let transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
     auth: {
-        user: 'cecile.reilly@ethereal.email',
-        pass: 'GWD1KGbbdSStn7xRTy'
-    }
-}
+      user: "muma.sanmartin2011@gmail.com", 
+      pass: "gjfigjwnchrxfzvj", 
+    },
+  });
 
-module.exports = nodemailer.createTransport(mailConfig)
+  transporter.verify(() => {
+      console.log("Ready for emails")
+  })
+
+module.exports = transporter
