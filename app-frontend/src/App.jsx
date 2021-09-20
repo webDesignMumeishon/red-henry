@@ -4,11 +4,12 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 import { useState } from 'react';
 import Mapview from './components/Mapview';
 import Create from './components/Create';
+import ResetPassword from './components/ResetPassword'
+import ReCrearePassword from './components/ReCreatePassword'
 
 // import Create from './Create';
 
@@ -34,6 +35,13 @@ function App() {
         <Route path="/create">
           <Create/>
         </Route>
+
+        <Route exact path="/resetpassword">
+          <ResetPassword/>
+        </Route>
+
+        <Route path='/recreatepassword/:token/:email' component={ReCrearePassword}/>
+
         
         {/* Default redirected page if the path is invalid */}
         <Route path="*"  exact={true}>

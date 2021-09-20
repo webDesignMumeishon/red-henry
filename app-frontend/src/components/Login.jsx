@@ -31,7 +31,7 @@ function Login(props) {
       password : e.target[1].value
     }
 
-    fetch('http://localhost:3000/client/auth/authenticate',{
+    fetch('http://localhost:3000/clientauth/authenticate',{
       method: 'POST',
       withCredentials: true,
       //DON'T TOUCH
@@ -61,12 +61,13 @@ function Login(props) {
   
     return (
         <div>
-          {/* <Link to={'/Mapview'}>OK</Link> */}
+          <Link className="link-top" to="/Create">Sing in</Link>
+          <Link className="link-map" to="/Mapview">Go to Map</Link>
+
           <form onSubmit={handleSubmit} className="login-box">
             <h1>Login</h1>
-            
             <div className="textbox">
-              <p>Not a user? <Link style={{fontWeight:"500"}}>Sing in here</Link> </p>
+              <p>Not a user? <Link to="/create" style={{fontWeight:"500"}}>Sing in here</Link> </p>
             </div>
 
             <div className="textbox">
@@ -77,9 +78,10 @@ function Login(props) {
             <div className="textbox">
               <RiLockPasswordFill className="icons"/>
               <input type="text" placeholder="password"/>
+              <p>Forgot your password? <Link to="/resetpassword" style={{fontWeight:"500"}}>Click Here</Link> </p>
               
             </div>
-            <button type="submit" class="my-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Log in</button>
+            <button type="submit" className="my-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Log in</button>
           </form>
           <Modal show={show} handleClose={handleClose} message={message}/>
         </div>

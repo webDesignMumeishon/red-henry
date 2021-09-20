@@ -1,1 +1,18 @@
 -modificar el logout
+
+-hacer un email especifico para validaciones
+
+-cambiar icono de la pagina
+
+-limpiar rutas etc
+
+-agregar link de github y linkedin
+
+-animaciones para el toggle
+
+gjfigjwnchrxfzvj
+Instrucciones de uso
+Ve a la configuración de tu cuenta de Google en la aplicación o el dispositivo que quieres configurar. 
+Ingresa la contraseña de 16 caracteres que aparece arriba para reemplazar la anterior.
+Al igual que la contraseña normal, esta contraseña de la aplicación otorga acceso completo a tu cuenta de Google. 
+Como no es necesario que la recuerdes, no la escribas ni la compartas con nadie.
