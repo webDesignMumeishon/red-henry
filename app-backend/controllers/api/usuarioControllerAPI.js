@@ -9,17 +9,22 @@ exports.usuario_list = function(req, res){
     })
 }
 
-exports.usuario_create = function(req, res){
+exports.usuario_create = function(req, res){    
+    
     let usuarios = new Usuario({
-        nombre: req.body.nombre, 
+        nombre: req.body.nombre + " " + req.body.apellido, 
         email: req.body.email, 
         cohorte: req.body.cohorte,
         password: req.body.password,
         ubicacion: [req.body.lat, req.body.lng]
     })
     usuarios.save()
-    .then(result => {
-        res.status(200).json(result)
+    .then((r) => {
+        usuarios.enviar_email_bienvenida()
+        res.status(200).json({message: "Usuario creado con exito", creation: true})
+    })
+    .catch((err) => {
+        res.json({message: err.message, creation: false})
     })
 }
 
