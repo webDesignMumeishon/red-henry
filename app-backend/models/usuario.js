@@ -33,12 +33,24 @@ let usuarioSchema = new Schema({
         validate: [validateEmail, 'Please, insert a valid email'],
         //the db can only have one user associated to an email (npm i mongoose-unique-validator --save)
         unique: true,
-        //match, whaever input has to match this sequence, it runs in the mondoDB level
+        //match, whatever input has to match this sequence, it runs in the mondoDB level
         match: [/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/]
     },
 
     cohorte:{
         type: String,
+    },
+
+    linkedin: {
+        type: String,
+        require: [true, 'The linkedin is Mandatory'],
+        default: '#'
+    },
+
+    github: {
+        type: String,
+        require: [true, 'The github is Mandatory'],
+        default: '#'
     },
 
     password: {

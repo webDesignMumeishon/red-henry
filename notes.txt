@@ -1,12 +1,9 @@
--modificar el logout
 
 -hacer un email especifico para validaciones
 
 -cambiar icono de la pagina
 
 -limpiar rutas etc
-
--agregar link de github y linkedin
 
 -animaciones para el toggle
 

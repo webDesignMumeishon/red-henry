@@ -14,7 +14,6 @@ export default function Create() {
   const [show, setShow] = useState(false);
 
   const handleClose = () => {
-    //cuando se crea efectivamente el usuario se hace el push / y cambia de pagina
     setShow(false)
     history.push("/")
   };

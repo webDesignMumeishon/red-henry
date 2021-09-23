@@ -13,13 +13,11 @@ function validarUsuario(req,res,next){
             message: err.message, data:null
         })
         }else{
-        req.body.userId = decoded.id
-        next()
+            req.body.userId = decoded.id
+            next()
         }
     })
 }
-  
-
 
 router.get('/',validarUsuario, usuarioController.usuario_list)
 router.post('/create', usuarioController.usuario_create)

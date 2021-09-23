@@ -1,16 +1,10 @@
-// import logo from './logo.svg';
 import '../App.css';
 import { MapContainer, TileLayer, Marker, Popup,useMapEvents } from 'react-leaflet'
 import { useHistory } from "react-router-dom";
 import {useEffect} from 'react'
 import { useState } from 'react';
-// import About from './About'
 import { AiFillGithub } from 'react-icons/ai';
 import { AiFillLinkedin } from 'react-icons/ai';
-import { AiFillFacebook } from 'react-icons/ai';
-
-
-
 
 function Mapview(props) {
 
@@ -18,10 +12,10 @@ function Mapview(props) {
   const [login, setLogin] =  useState(false)
   const [bicis, setBicis] =  useState([])
   const [numBicis, setNumBicis] = useState(0)
-  const [toggle, setToggle] = useState(true)
   const [detail, setDetails] = useState({
     toggle: true
   })
+
 
   useEffect(() => {
     fetch('http://localhost:3000/api/usuarios', {
@@ -69,7 +63,6 @@ function Mapview(props) {
     setLogin(false)
   }
 
-  console.log(detail)
 
   if(!login){
     return (
@@ -90,20 +83,17 @@ function Mapview(props) {
       <div className="moreInfo" hidden={detail.toggle}>
         <button className="btn-info" onClick={() => setDetails({...detail, toggle: !detail.toggle})}>X</button>
         <div className="body-info">
-        <h3 className="info-title">{detail.nombre}</h3>
-        <p>Cohorte: {detail.cohorte}</p>
-        <p>{detail.email}</p>  
-        <form  method="post" action={`mailto:${detail.email}`} >
-          <input className="send-email-btn" type="submit" value="Contact" /> 
-        </form>
-        <ul class="social-icons">
-          <li><a href="#"><AiFillGithub/></a></li>
-          <li><a href="#"><AiFillLinkedin/></a></li>
-          <li><a href="#"><AiFillFacebook/></a></li>
-        </ul>
-
+          <h3 className="info-title">{detail.nombre}</h3>
+          <p>Cohorte: {detail.cohorte}</p>
+          <p>{detail.email}</p>  
+          <form  method="post" action={`mailto:${detail.email}`} >
+            <input className="send-email-btn" type="submit" value="Contact" /> 
+          </form>
+          <ul className="social-icons">
+            <li><a href={detail.github} target="_blank"><AiFillGithub/></a></li>
+            <li><a href={detail.linkedin} target="_blank"><AiFillLinkedin/></a></li>
+          </ul>
         </div>
-        
       </div>
 
       <MapContainer
@@ -123,7 +113,6 @@ function Mapview(props) {
               Nombre: {b.nombre} <br />
               Cohorte: {b.cohorte}
               <br/>
-              {/* <span className="moreSpan" onClick={ () => setToggle(!toggle)}>More</span> */}
               <span className="moreSpan" onClick={() => setDetails({toggle: !detail.toggle, ...b})}>More</span>
             </Popup>
             </Marker> 

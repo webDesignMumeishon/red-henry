@@ -3,27 +3,9 @@ let router = express.Router()
 const Usuario = require('../models/usuario')
 const Token = require('../models/token')
 
-
-// router.post('/login', function(req, res, next){
-
-//     console.log(passport.authenticate('local'))
-//     passport.authenticate('local', function(err, usuario, info){
-//       if(err) return next(err)
-  
-//       if(!usuario) return res.render('session/login', {info})
-  
-//       req.logIn(usuario, function(err){
-//         console.log(usuario)
-//         if(err) return next(err)
-//         return res.redirect('/')
-  
-//       })
-//     })(req, res, next);
-//   })
-
 router.post('/forgotPassword', function(req, res){
   Usuario.findOne({ email: req.body.email }, function (err, usuario) {
-    if (!usuario) return res.json({info: {message: 'No existe el usuario'}});
+    if (!usuario) return res.json({message: 'No existe el email'});
     usuario.resetPassword(function(err){
       if (err) return next(err);
       console.log('session/forgotPasswordMessage');
