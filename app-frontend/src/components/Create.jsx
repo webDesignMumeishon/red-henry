@@ -88,7 +88,10 @@ export default function Create() {
       apellido: values.apellido.slice(0,1).toUpperCase()+values.apellido.slice(1)
     })
 
-    fetch('http://localhost:3000/api/usuarios/create', {
+    const remote = "https://app-red-henry.herokuapp.com/api/usuarios/create"
+    const local = "http://localhost:3000/api/usuarios/create"
+
+    fetch(remote, {
     method: 'POST',
     withCredentials: true,
     //DON'T TOUCH
