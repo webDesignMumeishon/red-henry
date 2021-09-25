@@ -10,11 +10,14 @@ exports.usuario_list = function(req, res){
 }
 
 exports.usuario_create = function(req, res){    
-    
+    console.log(req.body)
+
     let usuarios = new Usuario({
         nombre: req.body.nombre + " " + req.body.apellido, 
         email: req.body.email, 
         cohorte: req.body.cohorte,
+        linkedin: req.body.linkedin,
+        github: req.body.github,
         password: req.body.password,
         ubicacion: [req.body.lat, req.body.lng]
     })

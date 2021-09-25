@@ -33,8 +33,8 @@ export default function Create() {
     cohorte: "",
     password: "",
     repassword: "",
-    // github: "",
-    // linkedin: "",
+    github: "",
+    linkedin: "",
     lat: "",
     lng: ""
   })
@@ -62,6 +62,8 @@ export default function Create() {
   const handleOnSubmit = (e) => {
     e.preventDefault()
 
+    console.log(values.github)
+
     if(values.password !== values.repassword){
       console.log("entro")
       handleShow()
@@ -71,6 +73,8 @@ export default function Create() {
         apellido: "",
         email: "",
         cohorte: "",
+        linkedin: "",
+        github: "",
         password: "",
         repassword: "",
         lat: "",
@@ -84,7 +88,10 @@ export default function Create() {
       apellido: values.apellido.slice(0,1).toUpperCase()+values.apellido.slice(1)
     })
 
-    fetch('http://localhost:3000/api/usuarios/create', {
+    const remote = "https://app-red-henry.herokuapp.com/api/usuarios/create"
+    const local = "http://localhost:3000/api/usuarios/create"
+
+    fetch(remote, {
     method: 'POST',
     withCredentials: true,
     //DON'T TOUCH
@@ -116,34 +123,43 @@ export default function Create() {
             <form  className="create-box" onSubmit={handleOnSubmit}>
             <h1>Create an Accout</h1>
 
-            <div className="textbox">
-              <input type="text" placeholder="Nombre" name="nombre" value={values.nombre} onChange={handleOnChange}/>
+            <div className="textbox-create">
+              <input required type="text" placeholder="Nombre" name="nombre" value={values.nombre} onChange={handleOnChange}/>
             </div>
 
-            <div className="textbox">
-              <input type="text" placeholder="Apellido" name="apellido" value={values.apellido} onChange={handleOnChange}/>
+            <div className="textbox-create">
+              <input required type="text" placeholder="Apellido" name="apellido" value={values.apellido} onChange={handleOnChange}/>
             </div>
 
-            <div className="textbox">
-              <input type="text" placeholder="Email" name="email" value={values.email} onChange={handleOnChange}/>
+            <div className="textbox-create">
+              <input required type="text" placeholder="Email" name="email" value={values.email} onChange={handleOnChange}/>
             </div>
 
-            <div className="textbox">
-              <input type="text" placeholder="Cohort" name="cohorte" value={values.cohorte} onChange={handleOnChange} />
+            <div className="textbox-create">
+              <input required type="text" placeholder="Cohort" name="cohorte" value={values.cohorte} onChange={handleOnChange} />
             </div>
 
-            <div className="textbox">
-              <input type="text" placeholder="Password" name="password" value={values.password} onChange={handleOnChange}/>
+            <div className="textbox-create">
+              <input required type="text" placeholder="LinkdIn" name="linkedin" value={values.linkedin} onChange={handleOnChange} />
             </div>
 
-            <div className="textbox">
-              <input type="text" placeholder="Re Enter Password" name="repassword" value={values.repassword} onChange={handleOnChange}/>
+            
+            <div className="textbox-create">
+              <input required  type="text" placeholder="Github" name="github" value={values.github} onChange={handleOnChange} />
             </div>
 
-            <div className="textbox">
+            <div className="textbox-create">
+              <input required type="text" placeholder="Password" name="password" value={values.password} onChange={handleOnChange}/>
+            </div>
+
+            <div className="textbox-create">
+              <input required type="text" placeholder="Re Enter Password" name="repassword" value={values.repassword} onChange={handleOnChange}/>
+            </div>
+
+            <div className="textbox-coordinates">
                 <p>By default your current coordinates are shown </p>
-                <input style={{marginBottom: "10px"}} type="text" placeholder="Latitude" name="lat" value={values.lat} onChange={handleOnChange}/>
-                <input type="text" placeholder="Longitude" name="lng" value={values.lng} onChange={handleOnChange}/>
+                <input required style={{marginBottom: "10px"}} type="text" placeholder="Latitude" name="lat" value={values.lat} onChange={handleOnChange}/>
+                <input required type="text" placeholder="Longitude" name="lng" value={values.lng} onChange={handleOnChange}/>
             </div>
 
             <button type="submit" className="my-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Create Account</button>
