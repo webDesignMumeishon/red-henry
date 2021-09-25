@@ -31,8 +31,8 @@ function Login(props) {
       password : e.target[1].value
     }
 
-    const local = "https://app-red-henry.herokuapp.com/clientauth/authenticate"
-    const remote = "http://localhost:3000/clientauth/authenticate"
+    const remote = "https://app-red-henry.herokuapp.com/clientauth/authenticate"
+    const local = "http://localhost:3000/clientauth/authenticate"
 
     fetch(remote ,{
       method: 'POST',
