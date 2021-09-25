@@ -22,7 +22,7 @@ const Usuario = require('./models/usuario')
 const jwt = require('jsonwebtoken')
 const clientRouter = require('./routes/client')
 const {
-  MONGO_DB_CONNECTION_PASSWORD, SECRET_KEY
+  MONGO_DB_CONNECTION, SECRET_KEY, CORS_ORIGIN
 } = process.env;
 // const MongoDBStore = require('connect-mongodb-session')(session);
 
@@ -32,11 +32,7 @@ const store = new session.MemoryStore
 var app = express();
 
 app.use(cors({
-  
-  //deployment
-  origin: "https://find-closest-henry.netlify.app",
-
-  // origin: "http://localhost:3001",
+  origin: CORS_ORIGIN,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 }))
@@ -48,7 +44,7 @@ app.set('secretKey', SECRET_KEY);
 let mongoose = require('mongoose')
 //This is to establish the connection
 
-let mongoDB = `mongodb+srv://new-admin:${MONGO_DB_CONNECTION_PASSWORD}@cluster0.cu6bh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
+let mongoDB = MONGO_DB_CONNECTION
 //Setting up the db
 mongoose.connect(mongoDB, {useNewUrlParser: true})
 mongoose.Promise= global.Promise
