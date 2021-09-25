@@ -21,7 +21,7 @@ function Mapview(props) {
   const local = "http://localhost:3000/api/usuarios"
 
   useEffect(() => {
-    fetch('remote', {
+    fetch(remote, {
       method: 'GET',
       withCredentials: true,
       //DON'T TOUCH
