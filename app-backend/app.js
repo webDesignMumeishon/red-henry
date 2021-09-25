@@ -34,7 +34,7 @@ var app = express();
 app.use(cors({
   
   //deployment
-  origin: "https://find-closest-henry.netlify.app/",
+  origin: "https://find-closest-henry.netlify.app",
 
   // origin: "http://localhost:3001",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
