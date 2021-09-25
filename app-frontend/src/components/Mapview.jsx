@@ -5,6 +5,9 @@ import {useEffect} from 'react'
 import { useState } from 'react';
 import { AiFillGithub } from 'react-icons/ai';
 import { AiFillLinkedin } from 'react-icons/ai';
+const {
+  REACT_APP_SERVER_BASE_URL
+} = process.env
 
 function Mapview(props) {
 
@@ -16,12 +19,8 @@ function Mapview(props) {
     toggle: true
   })
 
-
-  const remote = "https://app-red-henry.herokuapp.com/api/usuarios"
-  const local = "http://localhost:3000/api/usuarios"
-
   useEffect(() => {
-    fetch(remote, {
+    fetch(`${REACT_APP_SERVER_BASE_URL}/api/usuarios`, {
       method: 'GET',
       withCredentials: true,
       //DON'T TOUCH

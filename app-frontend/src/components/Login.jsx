@@ -10,6 +10,9 @@ import {
 } from "react-router-dom";
 import { FaUser } from 'react-icons/fa';
 import { RiLockPasswordFill } from 'react-icons/ri';
+const {
+  REACT_APP_SERVER_BASE_URL
+} = process.env
 
 
 
@@ -19,7 +22,6 @@ function Login(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
 
   const history = useHistory()
 
@@ -31,10 +33,7 @@ function Login(props) {
       password : e.target[1].value
     }
 
-    const remote = "https://app-red-henry.herokuapp.com/clientauth/authenticate"
-    const local = "http://localhost:3000/clientauth/authenticate"
-
-    fetch(remote ,{
+    fetch(`${REACT_APP_SERVER_BASE_URL}/clientauth/authenticate` ,{
       method: 'POST',
       withCredentials: true,
       //DON'T TOUCH

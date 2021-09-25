@@ -1,12 +1,15 @@
 import React from 'react'
 import { useHistory } from "react-router-dom";
 import '../App.css';
-
 import { useState, useEffect } from 'react';
 import {
   Link
 } from "react-router-dom";
 import Modal from "./Modal";
+
+const {
+  REACT_APP_SERVER_BASE_URL
+} = process.env
 
 
 export default function Create() {
@@ -88,10 +91,7 @@ export default function Create() {
       apellido: values.apellido.slice(0,1).toUpperCase()+values.apellido.slice(1)
     })
 
-    const remote = "https://app-red-henry.herokuapp.com/api/usuarios/create"
-    const local = "http://localhost:3000/api/usuarios/create"
-
-    fetch(remote, {
+    fetch(`${REACT_APP_SERVER_BASE_URL}/api/usuarios/create`, {
     method: 'POST',
     withCredentials: true,
     //DON'T TOUCH
