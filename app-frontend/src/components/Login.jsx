@@ -79,7 +79,7 @@ function Login(props) {
 
             <div className="textbox">
               <RiLockPasswordFill className="icons"/>
-              <input type="text" placeholder="password"/>
+              <input type="password" placeholder="password" />
               <p>Forgot your password? <Link to="/resetpassword" style={{fontWeight:"500"}}>Click Here</Link> </p>
               
             </div>

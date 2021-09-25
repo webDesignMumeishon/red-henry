@@ -66,7 +66,6 @@ export default function Create() {
   const handleOnSubmit = (e) => {
     e.preventDefault()
 
-    console.log(values.github)
 
     if(values.password !== values.repassword){
       console.log("entro")
@@ -85,14 +84,20 @@ export default function Create() {
         lng: ""
       })
     }
-
-    setValues({
-      ...values,
+    
+    const dataBody = {
       nombre: values.nombre.slice(0,1).toUpperCase()+values.nombre.slice(1),
-      apellido: values.apellido.slice(0,1).toUpperCase()+values.apellido.slice(1)
-    })
-
-    fetch(`${REACT_APP_SERVER_BASE_URL}/api/usuarios/create`, {
+      apellido: values.apellido.slice(0,1).toUpperCase()+values.apellido.slice(1),
+      email: values.email,
+      cohorte: values.cohorte,
+      linkedin: values.linkedin,
+      github: values.github,
+      password: values.password,
+      repassword: values.repassword,
+      lat: values.lat,
+      lng: values.lng
+    }
+  fetch(`${REACT_APP_SERVER_BASE_URL}/api/usuarios/create`, {
     method: 'POST',
     withCredentials: true,
     //DON'T TOUCH

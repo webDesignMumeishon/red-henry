@@ -21,6 +21,7 @@ const session = require('express-session')
 const Usuario = require('./models/usuario')
 const jwt = require('jsonwebtoken')
 const clientRouter = require('./routes/client')
+
 const {
   MONGO_DB_CONNECTION, SECRET_KEY, CORS_ORIGIN
 } = process.env;
@@ -30,7 +31,6 @@ const {
 //If the server is closed, it forgets all the logged users, thus, users have to authenticate again
 const store = new session.MemoryStore
 var app = express();
-
 app.use(cors({
   origin: CORS_ORIGIN,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",

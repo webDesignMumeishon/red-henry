@@ -7,6 +7,9 @@ import {
   Link
 } from "react-router-dom";
 import Modal from "./Modal";
+const {
+  REACT_APP_SERVER_BASE_URL
+} = process.env
 
 
 export default function Create(props) {
@@ -33,9 +36,8 @@ export default function Create(props) {
     repassword: "",
   })
 
-
   useEffect(() => {
-    fetch('http://localhost:3000/client/resetPassword/' + props.match.params.token)
+    fetch(`${REACT_APP_SERVER_BASE_URL}/client/resetPassword/${props.match.params.token}`)
     .then(result => {
       return result.json()
     })
@@ -102,11 +104,11 @@ export default function Create(props) {
           <h1>Re Enter Password</h1>
 
           <div className="textbox">
-            <input type="text" placeholder="Password" name="password" value={values.password} onChange={handleOnChange}/>
+            <input type="password" placeholder="Password" name="password" value={values.password} onChange={handleOnChange}/>
           </div>
 
           <div className="textbox">
-            <input type="text" placeholder="Re Enter Password" name="repassword" value={values.repassword} onChange={handleOnChange}/>
+            <input type="password" placeholder="Re Enter Password" name="repassword" value={values.repassword} onChange={handleOnChange}/>
           </div>
 
           <button type="submit" className="my-btn" data-bs-toggle="modal">Change Password</button>

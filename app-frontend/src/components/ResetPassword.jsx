@@ -8,6 +8,11 @@ import {
 } from "react-router-dom";
 import Modal from "./Modal";
 
+const {
+  REACT_APP_SERVER_BASE_URL
+} = process.env
+
+
 
 export default function Create() {
   const history = useHistory()
@@ -48,7 +53,7 @@ export default function Create() {
       })
     }
 
-    fetch('http://localhost:3000/client/forgotPassword', {
+    fetch(`${REACT_APP_SERVER_BASE_URL}/client/forgotPassword`, {
     method: 'POST',
     withCredentials: true,
     //DON'T TOUCH
