@@ -17,8 +17,11 @@ function Mapview(props) {
   })
 
 
+  const remote = "https://app-red-henry.herokuapp.com/api/usuarios"
+  const local = "http://localhost:3000/api/usuarios"
+
   useEffect(() => {
-    fetch('http://localhost:3000/api/usuarios', {
+    fetch('remote', {
       method: 'GET',
       withCredentials: true,
       //DON'T TOUCH
