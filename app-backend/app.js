@@ -64,8 +64,6 @@ app.use(passport.session())
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-//OKdawdasdasd
-
 //Here is configurated the cookie for the session
 app.use(session({
   //here we define how long the cookie lasts, when it expires

@@ -6,6 +6,8 @@
 /.pnp
 .pnp.js
 
+secretNotes.txt
+
 
 # testing
 /coverage
