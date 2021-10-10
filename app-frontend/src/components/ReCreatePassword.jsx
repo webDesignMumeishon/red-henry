@@ -59,11 +59,21 @@ export default function Create(props) {
 
   const handleOnSubmit = (e) => {
     e.preventDefault()
+    const PASSWORD_REGEX = /^[A-Za-z0-9]\w{8,}$/;
+
 
     if(values.password !== values.repassword){
-      console.log("entro")
       handleShow()
-      setMessage("Las constraseñas no coinciden.")
+      setMessage("Passwords don't match.")
+      return setValues({
+        password: "",
+        repassword: "",
+      })
+    }
+
+    if(!PASSWORD_REGEX.test(values.password)){
+      handleShow()
+      setMessage("La contraseña debe contener mas de 8 caracteres")
       return setValues({
         password: "",
         repassword: "",
@@ -104,6 +114,8 @@ export default function Create(props) {
           <h1>Re Enter Password</h1>
 
           <div className="textbox">
+          <span className="span-guidelines">Mas de 8 caracteres</span>
+
             <input type="password" placeholder="Password" name="password" value={values.password} onChange={handleOnChange}/>
           </div>
 
