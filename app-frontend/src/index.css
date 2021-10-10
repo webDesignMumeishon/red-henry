@@ -38,6 +38,12 @@ body::before{
   z-index: 0;
 }
 
+.label-input-sendmail{
+
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
 .loginHere{
   z-index: 5;
   position: absolute;
@@ -399,7 +405,10 @@ body::before{
 
 .card-text{
   grid-area: text;
-  margin: 25px;
+  display: flex;
+  letter-spacing: 3px;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 .card-text .date{

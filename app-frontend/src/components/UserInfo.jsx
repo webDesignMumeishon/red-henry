@@ -20,13 +20,14 @@ export const UserInfo = ({detail, close}) => {
                     <span className="date">Cohorte: {detail.cohorte}</span>
                     <h2>{detail.nombre}</h2>
                     <p>{detail.email}</p>
-                    <form method="post" action={`mailto:${detail.email}`} >
+                    <form method="post" action={`mailto:${detail.email}`} hidden={true}>
                         <input id="send-mail" className="send-email-btn" type="submit" value="Contact" /> 
                     </form>
                 </div>
                 <div className="card-stats">
                     <div className="stat" >
-                        <div className="value" for="send-mail"><a href="#"><AiOutlineMail/></a> </div>
+                        {/* <div className="value" for="send-mail"><a href="#"><AiOutlineMail/></a> </div> */}
+                      <label className="label-input-sendmail" htmlFor="send-mail"><AiOutlineMail/></label>
                         <div className="type"> Contact</div>
                     </div>
 
