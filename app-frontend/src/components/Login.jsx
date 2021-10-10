@@ -55,7 +55,6 @@ function Login(props) {
       }
       else{
         handleShow()
-        console.log(data.message)
         setMessage(data.message)
       }
     })

@@ -70,7 +70,7 @@ export default function Create(props) {
       })
     }
 
-    fetch('http://localhost:3000/client/resetPassword', {
+    fetch(`${REACT_APP_SERVER_BASE_URL}/client/resetPassword`, {
       method: 'POST',
       withCredentials: true,
       //DON'T TOUCH

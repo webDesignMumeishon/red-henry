@@ -10,6 +10,8 @@ const sgMail = require('@sendgrid/mail')
 const env = require('dotenv').config()
 const saltRounds = 10
 
+const { CORS_BACKEND} = process.env
+
 function validateEmail(email) {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
@@ -94,20 +96,22 @@ usuarioSchema.methods.reservar = function(biciId, desde, hasta, cb){
     return reserva.save()
 }
 
+
+console.log(CORS_BACKEND)
 usuarioSchema.methods.enviar_email_bienvenida = function(cb){
     const token = new Token({_userId: this.id, token: crypto.randomBytes(16).toString('hex')});
     const email_destination = this.email;
 
     token.save( async function (err) {
         if (err) { return console.log(err.message); }
-
+        console.log(`${CORS_BACKEND}/token/confirmation/${token.token}`)
         try{
             await transporter.sendMail({
                 from: '<verification@app.com>', // sender address
                 to: email_destination, // list of receivers
                 subject: "Email Verification", // Subject line
                 text: "Verify your account in the link down below", // plain text body
-                html: `<a href="http://localhost:3000/token/confirmation/${token.token}">Click To Verify</a>`
+                html: `<a href="${CORS_BACKEND}/token/confirmation/${token.token}">${CORS_BACKEND}/token/confirmation/${token.token}</a>`
             })    
         }
         catch(err){

@@ -6,6 +6,13 @@ body{
   background-size: cover;
 }
 
+.loading-modal{
+  position: absolute;
+  top: 35%;
+  z-index: 1000;
+  left: 45%;
+}
+
 body::before{
    
   content: '';
@@ -135,7 +142,7 @@ body::before{
 .textbox-coordinates{
   display: inline-block;
 
-
+  position: relative;
   width: 100%;
   overflow: hidden;
   font-size: 20px;
@@ -203,12 +210,41 @@ body::before{
   margin: 12px 50px;
 }
 
+.isOpen {
+  display: flex;
+}
+
+.info{
+  width: 100%;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;    
+  z-index: 999;
+  background-color: transparent;
+}
+
+.loading-main{
+  width: 100%;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;    
+  z-index: 999;
+  background-color: #000000a1;
+  color: white;
+}
+
 .logout:hover{
   background-color: #000000;
   color: white;
 }
 
-.moreInfo{
+.container1{
   height: 60vh;
   width: 30%;
   /* position: absolute; */
@@ -226,6 +262,27 @@ body::before{
 
 }
 
+.span-guidelines{
+  font-style: italic;
+  padding: .1em;
+  font-size: 1.1rem;
+  border-left: solid 4px #607d8b;
+  letter-spacing: 1px;
+}
+
+.reset-coordinates-btn{
+  position: absolute;
+  background-color: transparent;
+  top: 50%;
+  margin-left: .1em;
+  font-size: 1rem;
+}
+
+.reset-coordinates-btn:hover{
+  background-color: black;
+  color: white;
+
+}
 
 .moreSpan{
   text-decoration: underline;
@@ -238,7 +295,7 @@ body::before{
   position: absolute;
   right: 0;
   border-radius: 25px;
-  /* outline: none; */
+  margin: 1em;
   background-color: red;
   color: white;
   border: none;
@@ -298,8 +355,189 @@ body::before{
 
 .send-email-btn{
   border: none;
-  background: black;
-  color: yellow;
+  background: #000000c9;
+  color: white;
   padding: 5px;
   border-radius: 5px;
+}
+
+
+/* Card section info */
+.card{
+  color: black;
+  display: grid;
+  grid-template-columns: 300px;
+  grid-template-rows: 210px 210px 80px;
+  grid-template-areas: "image" "text" "stats";
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  border-radius: 18px;
+  background-color: white;
+  box-shadow: 5px 5px 15px rgb(0 0 0, 0.9);
+  text-align: center;
+  transition: 0.5s ease;
+  /* cursor: pointer; */
+  position: relative
+}
+
+.card:hover{
+  transform: scale(1.1);
+  box-shadow: 5px 5px 15px rgb(0,0,0,0.6);
+
+}
+
+.card-image{
+  grid-area: image;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-image: url("https://assets.soyhenry.com/logoOG.png");
+  background-size: cover;
+  width: 100%;
+  background-position: 40%;
+  background-color: beige;
+}
+
+.card-text{
+  grid-area: text;
+  margin: 25px;
+}
+
+.card-text .date{
+  color: yellow;
+  font-size: 13px;
+  letter-spacing: 2px;
+  background-color: gray;
+  padding: 0.2em;
+  border-radius: 5px;
+}
+
+.card-text p{
+  color: grey;
+  font-size: 15px;
+  font-weight: 300;
+
+}
+.card-text h2{
+  margin-top: 0px;
+  font-size: 28px;
+  text-transform: uppercase;
+}
+
+.card-stats{
+  grid-area: stats;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  background-color: yellow;
+}
+
+.card-stats .stat{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 10px;
+  color: black;
+}
+
+.card-stats .stat svg:hover{
+  box-shadow: 0 0 15px 10px gray;
+
+}
+
+.card-stats .type{
+  font-size: 11px;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+.card-stats .value{
+  font-size: 22px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.card-stats .value a{
+  color: black;
+}
+
+.card-stats .value a:hover{
+  transform: scale(1.1);
+}
+
+
+
+.border-stats{
+  border-left: 1px solid whitesmoke;
+  border-right: 1px solid whitesmoke;
+  padding: 0px 2px;
+}
+
+.create-title{
+  font-size: 1.5rem;
+  position: relative;
+  /* padding-top: 2em; */
+  width: 60%;
+  /* top: 15px; */
+}
+
+/* Responsive Design */
+
+@media screen and (max-width: 550px) {
+  .create-box {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .textbox-create {
+    display: block;
+    margin: auto;
+    width: 85%;
+    font-size: 15px;
+    padding: 4px 0;
+  }
+
+  .textbox-create input{
+   padding: 2px;
+  }
+
+  .create-box {
+    top: 50%;
+  }
+
+  .hide-span{
+    display: none;
+  }
+
+
+  .reset-coordinates-btn {
+    position: absolute;
+    background-color: transparent;
+    top: 35%;
+    margin: 0;
+    font-size: .9rem;
+  }
+}
+
+
+@media screen and (max-width: 330px) {
+  .textbox input, .textbox-coordinates input, .textbox-create input {
+    border: none;
+    outline: none;
+    padding: 5px;
+    border-radius: 8px;
+    font-size: 12px;
+    width: 75%;
+    float: left;
+    margin: 0 10px;
+}
+h1{
+  display: none;
+}
+.create-box {
+  top: 53%;
+}
 }

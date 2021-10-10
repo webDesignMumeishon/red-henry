@@ -10,11 +10,15 @@ module.exports = {
             if (err) {
                 next(err);
             } else {
-                if (userInfo === null) {return res.status(401).json({status:"error", message: "Invalido", data: null}); }
+                if (userInfo === null) {return res.status(401).json({status:"error", message: "User or Password Incorrect", data: null}); }
                 if (userInfo != null && bcrypt.compareSync(req.body.password, userInfo.password)) {
                     //if the password is correct we generate a token 
                     //the token is created with jwt 8method sign)
                     //We get the seed which is inside the app (globally) - also the expiration is detailed
+
+                    //This is to check if the user is verified
+                    if(!userInfo.verified) return res.status(200).json({message: "Usuario no verificado!"})
+                    
                     const token = jwt.sign({id: userInfo._id}, req.app.get('secretKey'), { expiresIn: '7d' });
                     res.status(200).json({message: "usuario encontrado!", data:{usuario: userInfo, token: token}, status:true});
 

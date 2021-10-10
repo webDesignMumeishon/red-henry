@@ -3,8 +3,9 @@ import { MapContainer, TileLayer, Marker, Popup,useMapEvents } from 'react-leafl
 import { useHistory } from "react-router-dom";
 import {useEffect} from 'react'
 import { useState } from 'react';
-import { AiFillGithub } from 'react-icons/ai';
-import { AiFillLinkedin } from 'react-icons/ai';
+import { Loading } from './Loading';
+
+import { UserInfo } from './UserInfo';
 const {
   REACT_APP_SERVER_BASE_URL
 } = process.env
@@ -12,7 +13,11 @@ const {
 function Mapview(props) {
 
   const history = useHistory()
-  const [login, setLogin] =  useState(false)
+
+  const [login, setLogin] =  useState(null)
+
+  const [loading, setLoading] = useState(false)
+
   const [bicis, setBicis] =  useState([])
   const [numBicis, setNumBicis] = useState(0)
   const [detail, setDetails] = useState({
@@ -20,6 +25,9 @@ function Mapview(props) {
   })
 
   useEffect(() => {
+    
+    setLoading(false)
+
     fetch(`${REACT_APP_SERVER_BASE_URL}/api/usuarios`, {
       method: 'GET',
       withCredentials: true,
@@ -34,10 +42,14 @@ function Mapview(props) {
     .then(dataBici => {
     setBicis([...dataBici.usuarios])
     setNumBicis([...dataBici.usuarios].filter(e => e.verified))
-    setLogin(true)
+    setLoading(true)
+    setLogin(false)
   }) 
   .catch(err => {
     console.log(err)
+    console.log("Failed request to the server!")
+    setLoading(true)
+    setLogin(true)
   })
   },[])
 
@@ -66,7 +78,7 @@ function Mapview(props) {
   }
 
 
-  if(!login){
+  if(login){
     return (
       <div className="loginHere">
         <h1>You are Not logged</h1>
@@ -82,21 +94,9 @@ function Mapview(props) {
         <h5 onClick={logout} className="logout">Logout</h5>
       </header>
 
-      <div className="moreInfo" hidden={detail.toggle}>
-        <button className="btn-info" onClick={() => setDetails({...detail, toggle: !detail.toggle})}>X</button>
-        <div className="body-info">
-          <h3 className="info-title">{detail.nombre}</h3>
-          <p>Cohorte: {detail.cohorte}</p>
-          <p>{detail.email}</p>  
-          <form  method="post" action={`mailto:${detail.email}`} >
-            <input className="send-email-btn" type="submit" value="Contact" /> 
-          </form>
-          <ul className="social-icons">
-            <li><a href={detail.github} target="_blank"><AiFillGithub/></a></li>
-            <li><a href={detail.linkedin} target="_blank"><AiFillLinkedin/></a></li>
-          </ul>
-        </div>
-      </div>
+      <Loading hidden={loading}/>
+
+      <UserInfo detail={detail} close={() => setDetails({...detail, toggle: !detail.toggle})}></UserInfo>
 
       <MapContainer
         center={{ lat: -17.82712706356967, lng: -57.94735835790813 }}
