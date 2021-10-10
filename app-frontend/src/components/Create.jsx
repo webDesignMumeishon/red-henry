@@ -219,11 +219,11 @@ export default function Create() {
 
             <div className="textbox-create">
             <span className="span-guidelines">Mas de 8 caracteres</span>
-              <input required type="text" placeholder="Password" name="password" value={values.password} onChange={handleOnChange}/>
+              <input required type="password" placeholder="Password" name="password" value={values.password} onChange={handleOnChange}/>
             </div>
 
             <div className="textbox-create">
-              <input required type="text" placeholder="Re ingresa contraseña" name="repassword" value={values.repassword} onChange={handleOnChange}/>
+              <input required type="password" placeholder="Re ingresa contraseña" name="repassword" value={values.repassword} onChange={handleOnChange}/>
             </div>
 
             <div className="textbox-coordinates">

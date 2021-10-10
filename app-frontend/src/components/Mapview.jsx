@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup,useMapEvents } from 'react-leafl
 import { useHistory } from "react-router-dom";
 import {useEffect} from 'react'
 import { useState } from 'react';
-import { Loading } from './Loading';
+import Loading  from './Loading';
 
 import { UserInfo } from './UserInfo';
 const {
@@ -107,7 +107,7 @@ function Mapview(props) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           {bicis.map((b,i) => {
-            return b.verified ?
+            return b.verified && b.nombre !== 'testing' ?
             <Marker
               key={i}
               position={b?.ubicacion}>
