@@ -10,7 +10,7 @@ const sgMail = require('@sendgrid/mail')
 const env = require('dotenv').config()
 const saltRounds = 10
 
-const { CORS_BACKEND} = process.env
+const { CORS_BACKEND, CORS_ORIGIN} = process.env
 
 function validateEmail(email) {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -136,7 +136,7 @@ usuarioSchema.methods.resetPassword = function(password){
                 subject: "Reset password", // Subject line
                 text: "Reset Your Password", // plain text body
                 html: `This is an email to reset your password <br/>
-                Click <a href="http://localhost:3001/recreatepassword/${token.token}/${email_destination}">here</a> to reset your password
+                Click <a href="${CORS_ORIGIN}/recreatepassword/${token.token}/${email_destination}">here</a> to reset your password
                 `
             })    
         }
