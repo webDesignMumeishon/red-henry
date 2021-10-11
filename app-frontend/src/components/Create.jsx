@@ -230,7 +230,7 @@ export default function Create() {
             </div>
 
             <div className="textbox-create">
-            <span className="span-guidelines">More than characters</span>
+            <span className="span-guidelines">More than 8 characters</span>
               <input required type="password" placeholder="Password" name="password" value={values.password} onChange={handleOnChange}/>
             </div>
 
