@@ -90,7 +90,7 @@ function Mapview(props) {
   return (
     <div>
       <header className="header">
-        <h5 className="nHenrys">Number of Henrys Verified: {numBicis.length}</h5>
+        <h5 className="nHenrys">Number of Henrys Verified: {numBicis.length-1}</h5>
         <h5 onClick={logout} className="logout">Logout</h5>
       </header>
 

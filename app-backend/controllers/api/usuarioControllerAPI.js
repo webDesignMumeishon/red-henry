@@ -10,7 +10,6 @@ exports.usuario_list = function(req, res){
 }
 
 exports.usuario_create = function(req, res){    
-    console.log(req.body)
 
     let usuarios = new Usuario({
         nombre: req.body.nombre + " " + req.body.apellido, 
@@ -24,7 +23,7 @@ exports.usuario_create = function(req, res){
     usuarios.save()
     .then((r) => {
         usuarios.enviar_email_bienvenida()
-        res.status(200).json({message: "Usuario creado con exito", creation: true})
+        res.status(200).json({message: `User created successfully.\n A mail verification was sent to your email.\n Check in your span folder`   , creation: true})
     })
     .catch((err) => {
         res.json({message: err.message, creation: false})
