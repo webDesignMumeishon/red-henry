@@ -81,69 +81,74 @@ export default function Create() {
     if(values.password !== values.repassword){
       handleShow()
       setMessage("Las constraseñas no coinciden.")
-      return setValues({
-        nombre: "",
-        apellido: "",
-        email: "",
-        cohorte: "",
-        linkedin: "",
-        github: "",
-        password: "",
-        repassword: "",
-        lat: "",
-        lng: ""
-      })
+      // return setValues({
+      //   nombre: "",
+      //   apellido: "",
+      //   email: "",
+      //   cohorte: "",
+      //   linkedin: "",
+      //   github: "",
+      //   password: "",
+      //   repassword: "",
+      //   lat: "",
+      //   lng: ""
+      // })
+      return null
     }
 
     if(!PASSWORD_REGEX.test(values.password)){
       handleShow()
       setMessage("La contraseña debe contener mas de 8 caracteres")
-      return setValues({
-        nombre: "",
-        apellido: "",
-        email: "",
-        cohorte: "",
-        linkedin: "",
-        github: "",
-        password: "",
-        repassword: "",
-        lat: "",
-        lng: ""
-      })
+
+      // return setValues({
+      //   nombre: "",
+      //   apellido: "",
+      //   email: "",
+      //   cohorte: "",
+      //   linkedin: "",
+      //   github: "",
+      //   password: "",
+      //   repassword: "",
+      //   lat: "",
+      //   lng: ""
+      // })
+      return null
     }
 
     if(!LINKEDIN_REGEX.test(values.linkedin)){
       handleShow()
       setMessage("No es un valido URL de LinkedIn")
-      return setValues({
-        nombre: "",
-        apellido: "",
-        email: "",
-        cohorte: "",
-        linkedin: "",
-        github: "",
-        password: "",
-        repassword: "",
-        lat: "",
-        lng: ""
-      })
+      // return setValues({
+      //   nombre: "",
+      //   apellido: "",
+      //   email: "",
+      //   cohorte: "",
+      //   linkedin: "",
+      //   github: "",
+      //   password: "",
+      //   repassword: "",
+      //   lat: "",
+      //   lng: ""
+      // })
+      return null
     }
 
     if(!COHORTE_REGEX.test(values.cohorte)){
       handleShow()
       setMessage("La cohorte ingresada no es valida.\n Por favor, sigue el ejemplo")
-      return setValues({
-        nombre: "",
-        apellido: "",
-        email: "",
-        cohorte: "",
-        linkedin: "",
-        github: "",
-        password: "",
-        repassword: "",
-        lat: "",
-        lng: ""
-      })
+      // return setValues({
+      //   nombre: "",
+      //   apellido: "",
+      //   email: "",
+      //   cohorte: "",
+      //   linkedin: "",
+      //   github: "",
+      //   password: "",
+      //   repassword: "",
+      //   lat: "",
+      //   lng: ""
+      // })
+      return null
     }
     
     const dataBody = {
@@ -199,7 +204,7 @@ export default function Create() {
             </div>
 
             <div className="textbox-create">
-              <span className="span-guidelines">'usuario@mail.com'</span>
+              <span className="span-guidelines">'[usuario]@mail.com'</span>
               <input required type="text" placeholder="Email" name="email" value={values.email} onChange={handleOnChange}/>
             </div>
 
@@ -214,11 +219,12 @@ export default function Create() {
 
             
             <div className="textbox-create">
+              <span className="span-guidelines">'https://github.com/[usuario]'</span>
               <input required  type="text" placeholder="Github" name="github" value={values.github} onChange={handleOnChange} />
             </div>
 
             <div className="textbox-create">
-            <span className="span-guidelines">Mas de 8 caracteres</span>
+            <span className="span-guidelines">More than characters</span>
               <input required type="password" placeholder="Password" name="password" value={values.password} onChange={handleOnChange}/>
             </div>
 
