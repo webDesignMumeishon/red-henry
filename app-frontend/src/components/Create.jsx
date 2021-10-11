@@ -75,7 +75,13 @@ export default function Create() {
     const PASSWORD_REGEX = /^[A-Za-z0-9]\w{8,}$/;
     const LINKEDIN_REGEX = /^(http(s)?:\/\/)?([\w]+\.)?linkedin\.com\/(pub|in|profile)/;
     const COHORTE_REGEX = /^[1-9][a-z]$|^[1-9][1-9][a-z]$/i
+    const GITHUB_REGEX = /https:\/\/github\.com\/.+/
     
+    if(!GITHUB_REGEX.test(values.github)){
+      handleShow()
+      setMessage("Invalid Github profile Link")
+      return null
+    }
 
 
     if(values.password !== values.repassword){
